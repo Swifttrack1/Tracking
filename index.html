@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,25 +46,47 @@
 
   <script>
     function trackPackage() {
-      const input = document.getElementById("trackingNumber").value;
+      const input = document.getElementById("trackingNumber").value.trim();
       const result = document.getElementById("result");
-      
-      if (!input.trim()) {
+
+      if (!input) {
         alert("Please enter a tracking number.");
         return;
       }
 
+      let trackingInfo = "";
+
+      if (input === "SW123456789ZA") {
+        trackingInfo = `
+          <h5>Tracking Number: <span class="text-muted">${input}</span></h5>
+          <ul>
+            <li><strong>Status:</strong> Delivered</li>
+            <li><strong>Delivered At:</strong> Cape Town, ZA</li>
+            <li><strong>Date:</strong> 1 May 2025</li>
+            <li><strong>Carrier:</strong> SwiftTrack Express</li>
+          </ul>
+        `;
+      } else if (input === "SW987654321ZA") {
+        trackingInfo = `
+          <h5>Tracking Number: <span class="text-muted">${input}</span></h5>
+          <ul>
+            <li><strong>Status:</strong> In Transit</li>
+            <li><strong>Last Location:</strong> Durban Facility</li>
+            <li><strong>Estimated Delivery:</strong> 6 May 2025</li>
+            <li><strong>Carrier:</strong> SwiftTrack Express</li>
+          </ul>
+        `;
+      } else {
+        trackingInfo = `
+          <h5>Tracking Number: <span class="text-muted">${input}</span></h5>
+          <p class="text-danger">No information available. Please check your tracking number and try again.</p>
+        `;
+      }
+
       result.classList.remove("d-none");
-      result.innerHTML = `
-        <h5>Tracking Number: <span class="text-muted">${input}</span></h5>
-        <ul>
-          <li><strong>Status:</strong> In Transit</li>
-          <li><strong>Last Location:</strong> Johannesburg Hub</li>
-          <li><strong>Estimated Delivery:</strong> 5 May 2025</li>
-          <li><strong>Carrier:</strong> SwiftTrack Express</li>
-        </ul>
-      `;
+      result.innerHTML = trackingInfo;
     }
   </script>
 </body>
 </html>
+
